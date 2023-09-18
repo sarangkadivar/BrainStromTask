@@ -9,15 +9,21 @@ SSH access to your server with sudo privileges.
 A GitHub repository containing your WordPress project.
 
 
-Step 1: Initial Server Setup
+Step 1: Initial Server Setup - I use aws EC2 Instance
+
+
 sudo apt update
+
 sudo apt upgrade
+
 sudo apt install -y curl git unzip
+
 sudo apt install -y nginx mysql-server php-fpm php-mysql
 
 
 
 Step 2: Configure Nginx
+
 sudo nano /etc/nginx/sites-available/brainstrom.serveftp.com
 
 
@@ -44,17 +50,32 @@ server {
 
 
 sudo ln -s /etc/nginx/sites-available/yourwebsite.com /etc/nginx/sites-enabled/
+
 sudo nginx -t
+
 sudo systemctl restart nginx
 
 
 
 Step 3: Install WordPress
+
 cd /var/www/
+
 sudo wget https://wordpress.org/latest.tar.gz
+
 sudo tar -xzvf latest.tar.gz
+
 sudo mv wordpress yourwebsite.com
+
 sudo chown -R www-data:www-data /var/www/brainstrom.serveftp.com
+
+
+
+Step 4 : SSL configuration
+
+sudo apt install certbot python3-certbot-nginx
+
+sudo certbot --nginx -d brainstrom.serveftp.com
 
 
 
